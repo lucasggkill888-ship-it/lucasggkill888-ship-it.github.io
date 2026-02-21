@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gerador Pro Sensi</title>
+
+<style>
+body{
+background:#000;
+color:#fff;
+font-family:Arial;
+text-align:center;
+}
+
+.container{
+margin-top:50px;
+}
+
+button{
+padding:12px 25px;
+margin:10px;
+border-radius:10px;
+border:2px solid white;
+background:black;
+color:white;
+font-size:16px;
+}
+
+button.active{
+background:white;
+color:black;
+}
+
+.box{
+background:#111;
+padding:20px;
+margin:20px auto;
+width:300px;
+border-radius:15px;
+border:1px solid #333;
+}
+
+input[type="checkbox"]{
+transform:scale(1.3);
+margin:10px;
+}
+
+#resultado{
+margin-top:20px;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Sensibilidade / Auxílio</h1>
+
+<button id="sensiBtn" class="active" onclick="modo='sensi';ativar()">Sensi</button>
+<button id="auxBtn" onclick="modo='aux';ativar()">Auxílio</button>
+
+<div class="box">
+
+<label><input type="checkbox" id="calibrar"> Calibrar sensibilidade</label><br>
+<label><input type="checkbox" id="recuo"> Reduzir recuo</label><br>
+<label><input type="checkbox" id="precisao"> Aumentar precisão</label><br>
+<label><input type="checkbox" id="lag"> Retirar input lag</label><br>
+
+<button onclick="injetar()">Injetar</button>
+
+</div>
+
+<div id="resultado"></div>
+
+</div>
+
+<script>
+
+let modo = "sensi";
+
+function ativar(){
+document.getElementById("sensiBtn").classList.remove("active");
+document.getElementById("auxBtn").classList.remove("active");
+
+if(modo=="sensi"){
+document.getElementById("sensiBtn").classList.add("active");
+}else{
+document.getElementById("auxBtn").classList.add("active");
+}
+}
+
+function injetar(){
+
+let geral = Math.floor(Math.random()*15)+85;
+let redDot = Math.floor(Math.random()*15)+85;
+let mira2x = Math.floor(Math.random()*15)+75;
+
+if(modo=="aux"){
+geral += 5;
+redDot += 5;
+}
+
+if(document.getElementById("calibrar").checked){
+geral += 2;
+}
+
+if(document.getElementById("recuo").checked){
+redDot += 3;
+}
+
+if(document.getElementById("precisao").checked){
+mira2x += 3;
+}
+
+if(document.getElementById("lag").checked){
+geral += 1;
+redDot += 1;
+mira2x += 1;
+}
+
+document.getElementById("resultado").innerHTML =
+"🔥 Configuração Gerada:<br><br>"+
+"Geral: "+geral+"<br>"+
+"Red Dot: "+redDot+"<br>"+
+"Mira 2x: "+mira2x+"<br><br>"+
+"Modo: "+modo.toUpperCase();
+
+}
+
+</script>
+
+</body>
+         </html>
